@@ -1,5 +1,6 @@
 <?php 
 require_once("Pessoa.php");
+require_once("Publicacao.php");
 
 class Livro implements Publicacao
 {
@@ -16,36 +17,61 @@ class Livro implements Publicacao
         $this->autor = $autor;
         $this->totPaginas = $totPaginas;
         $this->leitor = $leitor;
+        $this->pagAtual = 0;
+        $this->aberto = false;
     }
 
     public function detalhes()
     {
-
+        echo "<hr>livro " . $this->titulo . " escrito por " . $this->autor;
+        echo "<br>Páginas: " . $this->totPaginas . " atual " . $this->pagAtual;
+        echo "<br>Sendo lido por " . $this->leitor->getNome();
     }
 
     public function abrir()
     {
-
+        $this->aberto = true;
     }
 
     public function fechar()
     {
-
+        $this->aberto = false;
     }
 
-    public function folhear()
+    public function folhear($pagina)
     {
-
+        if($pagina > $this->totPaginas)
+        {
+            echo "Número de página maior que o livro!";
+        }
+        else
+        {
+            $this->pagAtual = $pagina;
+        }
     }
 
     public function avancarPag()
     {
-
+        if($this->pagAtual < $this->totPaginas)
+        {
+            $this->pagAtual++;
+        }
+        else
+        {
+            echo "Você está na ultima página";
+        }
     }
 
     public function voltarPag()
     {
-
+        if($this->pagAtual > 0)
+        {
+            $this->pagAtual--;
+        }
+        else
+        {
+            echo "Você está na primeira página";
+        }
     }
 
     /**
